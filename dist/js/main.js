@@ -10896,19 +10896,26 @@ var apod = {
 
     //Injects the results of the API call into the DOM
     buildDOM: function(result) {
-    $("#apodTitle").text(result.title);
+    document.getElementById('apodTitle').innerHTML=result.title;
+    //console.log(result.url);
+    //console.log(result.media_type);
   
     if(result.media_type === 'video') {
-      $("#apodImage").hide();
-      $("#apodVideo > iframe").attr("src", result.url).show();
-    }else{
-      $("#apodVideo").hide();
-      $("#apodImg").attr("src", result.url).attr('alt', result.title).show();
+      document.getElementById('apodImg').style.visibility = "hidden";
+      document.getElementById('apodVideo > iframe').src= result.url;
+    }
+    else{
+      //document.getElementById('apodVideo').style.visibility = "hidden";
+      document.getElementById('apodVideo').style.display = "none";
+      document.getElementById('apodImg').src = result.url;
+      console.log(result.media_type);
     }
   
-    $("#apodCopyright").text("Copyright: " + result.copyright);
-    $("#apodDate").text("Date: " + result.date);
-    $("#apodDesc").text(result.explanation);
+    //$("#apodCopyright").text("Copyright: " + result.copyright);
+    document.getElementById('apodCopyright').innerHTML=result.copyright;
+    document.getElementById('apodDate').innerHTML=result.date;
+    document.getElementById('apodDesc').innerHTML=result.explanation;
+
   },
   
   //Executes an AJAX call to an API.
@@ -10936,8 +10943,9 @@ var apod = {
 apod.init();
 
 /* https://learn.jquery.com/using-jquery-core/document-ready/ */
-$(function() {
-    $('#btnRandApod').on('click',function(){
+//$(function() {
+      //document.getElementById('btnRandApod').on('click',function(){
+      document.getElementById('btnRandApod').addEventListener('click', function(){
+      //document.getElementById('btnRandApod').onclick= function(){
       apod.getRequest();
     });
-});
